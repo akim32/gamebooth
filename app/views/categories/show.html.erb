@@ -1,0 +1,100 @@
+<div class="page-header">
+  <h3>Category #<%= @category.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Name</dt>
+      <dd><%= @category.name %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/categories" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/categories/<%= @category.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_category/<%= @category.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Category has many questions -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Questions
+      </li>
+
+      <% @category.questions.each do |question| %>
+        <li class="list-group-item">
+          <a href="/questions/<%= question.id %>">
+            <%= question.category_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/questions/<%= question.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/questions/<%= question.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_question/<%= question.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_question" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for category_id -->
+      <input type="hidden" name="category_id" value="<%= @category.id %>">
+
+      <!-- Label and input for question -->
+      <div class="form-group">
+        <label for="question" class="control-label">
+          Question
+        </label>
+
+        <input type="text" id="question" name="question" placeholder="Question" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for answer -->
+      <div class="form-group">
+        <label for="answer" class="control-label">
+          Answer
+        </label>
+
+        <input type="text" id="answer" name="answer" placeholder="Answer" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for submittor_id -->
+      <input type="hidden" name="submittor_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for status -->
+      <div class="form-group">
+        <label for="status" class="control-label">
+          Status
+        </label>
+
+        <input type="text" id="status" name="status" placeholder="Status" class="form-control" value="">
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Question
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<!-- Validation failure messages -->
+<% if @question.errors.any? %>
+  <% @question.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Question</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_question" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for category_id -->
+      <div class="form-group">
+        <label for="category_id" class="control-label">
+          Category
+        </label>
+
+        <%= select_tag(:category_id, options_from_collection_for_select(Category.all, :id, :name, @question.category_id), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for question -->
+      <div class="form-group">
+        <label for="question" class="control-label">
+          Question
+        </label>
+
+        <input type="text" id="question" name="question" placeholder="Question" class="form-control" value="<%= @question.question %>">
+      </div>
+
+      <!-- Label and input for answer -->
+      <div class="form-group">
+        <label for="answer" class="control-label">
+          Answer
+        </label>
+
+        <input type="text" id="answer" name="answer" placeholder="Answer" class="form-control" value="<%= @question.answer %>">
+      </div>
+
+      <!-- Label and input for submittor_id -->
+      <input type="hidden" name="submittor_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for status -->
+      <div class="form-group">
+        <label for="status" class="control-label">
+          Status
+        </label>
+
+        <input type="text" id="status" name="status" placeholder="Status" class="form-control" value="<%= @question.status %>">
+      </div>
+
+      <button class="btn btn-success">
+        Create Question
+      </button>
+      or
+      <a href="/questions">Cancel</a>
+    </form>
+  </div>
+</div>

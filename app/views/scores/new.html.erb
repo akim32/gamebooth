@@ -1,0 +1,49 @@
+<!-- Validation failure messages -->
+<% if @score.errors.any? %>
+  <% @score.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Score</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_score" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for category_id -->
+      <div class="form-group">
+        <label for="category_id" class="control-label">
+          Category
+        </label>
+
+        <input type="text" id="category_id" name="category_id" placeholder="Category" class="form-control" value="<%= @score.category_id %>">
+      </div>
+
+      <!-- Label and input for question_id -->
+      <div class="form-group">
+        <label for="question_id" class="control-label">
+          Question
+        </label>
+
+        <%= select_tag(:question_id, options_from_collection_for_select(Question.all, :id, :category_id, @score.question_id), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-success">
+        Create Score
+      </button>
+      or
+      <a href="/scores">Cancel</a>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h3>Score #<%= @score.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>User</dt>
+      <dd>
+        <% if @score.user.present? %>
+          <a href="/users/<%= @score.user_id %>">
+            <%= @score.user.email %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Category</dt>
+      <dd><%= @score.category_id %></dd>
+
+      <dt>Question</dt>
+      <dd>
+        <% if @score.question.present? %>
+          <a href="/questions/<%= @score.question_id %>">
+            <%= @score.question.category_id %>
+          </a>
+        <% end %>
+      </dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/scores" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/scores/<%= @score.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_score/<%= @score.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

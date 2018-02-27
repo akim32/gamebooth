@@ -1,0 +1,124 @@
+<div class="page-header">
+  <h3>User #<%= @user.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Email</dt>
+      <dd><%= @user.email %></dd>
+
+      <dt>Password</dt>
+      <dd><%= @user.password %></dd>
+
+      <dt>Score</dt>
+      <dd><%= @user.score %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/users" class="btn btn-primary">
+        Back
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A User has many questions -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Questions
+      </li>
+
+      <% @user.questions.each do |question| %>
+        <li class="list-group-item">
+          <a href="/questions/<%= question.id %>">
+            <%= question.category_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/questions/<%= question.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <%if current_user == question.submittor %>
+              <a href="/questions/<%= question.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a href="/delete_question/<%= question.id %>" class="btn btn-danger" rel="nofollow">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A User has many scorecards -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Scorecards
+      </li>
+
+      <% @user.scorecards.each do |score| %>
+        <li class="list-group-item">
+          <a href="/scores/<%= score.id %>">
+            <%= score.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/scores/<%= score.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <%if current_user == score.user %>
+              <a href="/scores/<%= score.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a href="/delete_score/<%= score.id %>" class="btn btn-danger" rel="nofollow">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A User has many messages -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Messages
+      </li>
+
+      <% @user.messages.each do |message| %>
+        <li class="list-group-item">
+          <a href="/messages/<%= message.id %>">
+            <%= message.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/messages/<%= message.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <%if current_user == message.user %>
+              <a href="/messages/<%= message.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a href="/delete_message/<%= message.id %>" class="btn btn-danger" rel="nofollow">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

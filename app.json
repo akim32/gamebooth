@@ -1,0 +1,1 @@
+{"name":"gamebooth","repository":"https://github.com/akim32/gamebooth","env":{"CLOUDINARY_CLOUD_NAME":{"required":true},"CLOUDINARY_API_KEY":{"required":true},"CLOUDINARY_API_SECRET":{"required":true},"ROLLBAR_ACCESS_TOKEN":{"required":true}}}

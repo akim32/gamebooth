@@ -1,0 +1,108 @@
+<div class="page-header">
+  <h3>Question #<%= @question.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Category</dt>
+      <dd>
+        <% if @question.category.present? %>
+          <a href="/categories/<%= @question.category_id %>">
+            <%= @question.category.name %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Question</dt>
+      <dd><%= @question.question %></dd>
+
+      <dt>Answer</dt>
+      <dd><%= @question.answer %></dd>
+
+      <dt>Submittor</dt>
+      <dd>
+        <% if @question.submittor.present? %>
+          <a href="/users/<%= @question.submittor_id %>">
+            <%= @question.submittor.email %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Status</dt>
+      <dd><%= @question.status %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/questions" class="btn btn-primary">
+        Back
+      </a>
+      <% if current_user == @question.submittor %>
+        <a href="/questions/<%= @question.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_question/<%= @question.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- A Question has many scorecards -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Scorecards
+      </li>
+
+      <% @question.scorecards.each do |score| %>
+        <li class="list-group-item">
+          <a href="/scores/<%= score.id %>">
+            <%= score.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/scores/<%= score.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/scores/<%= score.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_score/<%= score.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_score" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for category_id -->
+      <div class="form-group">
+        <label for="category_id" class="control-label">
+          Category
+        </label>
+
+        <input type="text" id="category_id" name="category_id" placeholder="Category" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for question_id -->
+      <input type="hidden" name="question_id" value="<%= @question.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Score
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
