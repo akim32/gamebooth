@@ -6,6 +6,7 @@ class CreateQuestions < ActiveRecord::Migration
       t.string :answer
       t.integer :submittor_id
       t.integer :status
+      t.string :answer_explanation
 
       t.timestamps
 

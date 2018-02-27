@@ -37,6 +37,7 @@ class QuestionsController < ApplicationController
     @question.answer = params[:answer]
     @question.submittor_id = params[:submittor_id]
     @question.status = params[:status]
+    @question.answer_explanation = params[:answer_explanation]
 
     save_status = @question.save
 
@@ -68,6 +69,7 @@ class QuestionsController < ApplicationController
     @question.answer = params[:answer]
     @question.submittor_id = params[:submittor_id]
     @question.status = params[:status]
+    @question.answer_explanation = params[:answer_explanation]
 
     save_status = @question.save
 

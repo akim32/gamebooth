@@ -57,6 +57,15 @@
         <input type="text" id="status" name="status" placeholder="Status" class="form-control" value="<%= @question.status %>">
       </div>
 
+      <!-- Label and input for answer_explanation -->
+      <div class="form-group">
+        <label for="answer_explanation" class="control-label">
+          Answer explanation
+        </label>
+
+        <input type="text" id="answer_explanation" name="answer_explanation" placeholder="Answer explanation" class="form-control" value="<%= @question.answer_explanation %>">
+      </div>
+
       <button class="btn btn-warning">
         Update Question
       </button>

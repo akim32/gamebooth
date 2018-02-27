@@ -1,6 +1,6 @@
 ActiveAdmin.register Question do
 
- permit_params :category_id, :question, :answer, :submittor_id, :status
+ permit_params :category_id, :question, :answer, :submittor_id, :status, :answer_explanation
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
